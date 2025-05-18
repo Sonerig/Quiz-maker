@@ -1,0 +1,46 @@
+from pprint import pprint
+#This function parsing the txt file with questions
+'''
+question is a list of:
+text - question text, string
+type - type of question, string
+answers - list of dictionaries with answers looks like:
+    [
+        {
+            'text': here is the answer text - string,
+            'is_correct': here is the boolean state of answer - bool 
+        },
+    ]
+'''
+def parse_quiz_file(file):
+    questions = list()
+    current_question = None
+    question_lines = str()
+    is_question = False
+
+    for line in file:
+        line = line.decode('utf-8').strip()
+
+        if line.startswith('S:'):
+            is_question = True
+            question_lines = ''
+            current_question = {
+                'text': '',
+                'type': 'fill' if '###' in line[2:] else 'choice',
+                'answers': list()
+            }
+            questions.append(current_question)
+            question_lines += (line[2:])
+
+        elif line.startswith(('+:', '-:')):
+            is_question = False
+            current_question['text'] = question_lines
+            current_question['answers'].append({
+                'text': line[2:].strip(),
+                'is_correct': line.startswith('+:'),
+            })
+
+        elif is_question:
+            question_lines += (f'\n{line}')
+    
+    return questions
