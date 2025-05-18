@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Результаты</title>
+        <style>
+            body {
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px 20px;
+                text-align: center;
+                background-color: #f8f9fa;
+            }
+            h1 {
+                color: #2c3e50;
+                margin-bottom: 30px;
+                font-size: 28px;
+            }
+            .result-container {
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+            }
+            .score {
+                font-size: 24px;
+                font-weight: bold;
+                color: #27ae60;
+                margin: 20px 0;
+            }
+            .percentage {
+                font-size: 20px;
+                color: #3498db;
+            }
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .button {
+                padding: 12px 25px;
+                border: none;
+                border-radius: 6px;
+                font-size: 16px;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+            .home-button {
+                background: #3498db;
+                color: white;
+            }
+            .home-button:hover {
+                background: #2980b9;
+            }
+            .retry-button {
+                background: #e74c3c;
+                color: white;
+            }
+            .retry-button:hover {
+                background: #c0392b;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="result-container">
+            <h1>Результаты теста</h1>
+            <div class="score">Правильных ответов: {{ score }} из {{ total }}</div>
+            <div class="percentage">{{ percent }}%</div>
+        </div>
+    
+        <div class="button-container">
+            <a href="{% url 'upload_file' %}" class="button home-button">На главную</a>
+            <a href="{% url 'start_quiz' %}" class="button retry-button">Пройти ещё раз</a>
+        </div>
+    </body>
+</html>
