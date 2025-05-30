@@ -3,7 +3,7 @@
 question is a list of:
 [
     {
-        id: int() - question ID
+        question_id: int() - question ID
         text: str() - question text
         type: str() - type of question - choice of fill
         answers - list of dictionaries with answers looks like:
