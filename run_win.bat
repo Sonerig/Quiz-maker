@@ -3,9 +3,12 @@
 :start
 IF NOT EXIST venv\ (
     ECHO Trying to create the virtual environment...
-    "C:\Program Files\Python313\python.exe" -m venv venv
+    python -m venv venv
     IF ERRORLEVEL 1 (
-        GOTO python_not_found
+        "C:\Program Files\Python313\python.exe" -m venv venv
+        IF ERRORLEVEL 1 (
+            GOTO python_not_found
+        )
     )
     venv\Scripts\pip.exe install -r requirements.txt
 )
