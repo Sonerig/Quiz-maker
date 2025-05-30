@@ -73,7 +73,7 @@
     
         <div class="button-container">
             <a href="{% url 'upload_file' %}" class="button home-button">На главную</a>
-            <a href="{% url 'start_quiz' %}" class="button retry-button">Пройти ещё раз</a>
+            <a href="{% url 'start_quiz' question_id=1 %}" class="button retry-button">Пройти ещё раз</a>
         </div>
     </body>
 </html>
