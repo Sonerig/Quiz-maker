@@ -82,24 +82,22 @@
 </head>
 <body>
     <h1>Тест</h1>
-    <form method="post" action="{% url 'result' %}" autocomplete="off">
+    <form method="post" autocomplete="off">
         {% csrf_token %}
-        {% for question in questions %}
-            <div>
-                <p style="white-space: pre-line">{{ question.text }}</p>
-                {% if question.type == 'fill' %}
-                    <input type="text" name="answer_{{ forloop.counter }}">
-                {% else %}
-                    {% for answer in question.answers %}
-                        <label>
-                            <input type="checkbox" name="answer_{{ forloop.parentloop.counter }}" value="{{ answer.text }}">
-                            {{ answer.text }}
-                        </label><br>
-                    {% endfor %}
-                {% endif %}
-            </div>
-            <hr>
-        {% endfor %}
+        <div>
+            <p style="white-space: pre-line">{{ question.text }}</p>
+            {% if question.type == 'fill' %}
+                <input type="text" name="answer">
+            {% else %}
+                {% for answer in question.answers %}
+                    <label>
+                        <input type="checkbox" name="answer" value="{{ answer.is_correct }}">
+                        {{ answer.text }}
+                    </label><br>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <hr>
         <button type="submit">Отправить</button>
     </form>
 </body>
