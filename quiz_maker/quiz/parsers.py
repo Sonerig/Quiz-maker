@@ -3,7 +3,6 @@
 question is a list of:
 [
     {
-        id: int() - question ID
         text: str() - question text
         type: str() - type of question - choice of fill
         answers - list of dictionaries with answers looks like:
@@ -31,7 +30,6 @@ def parse_quiz_file(file):
             is_question = True
             question_lines = ''
             current_question = {
-                'id': int(),
                 'text': '',
                 'type': 'fill' if '###' in line[2:] else 'choice',
                 'answers': list()
@@ -51,8 +49,7 @@ def parse_quiz_file(file):
             question_lines += (f'\n{line}')
     
     shuffle(questions)
-    for id, question in enumerate(questions, start=1):
-        question['id'] = id
+    for question in questions:
         shuffle(question['answers'])
     
     return questions
