@@ -11,9 +11,10 @@ IF NOT EXIST venv\ (
         )
     )
     venv\Scripts\pip.exe install -r requirements.txt
+    venv\Scripts\python.exe quiz_maker/manage.py migrate
 )
 CALL venv\Scripts\activate.bat
-CD quiz_maker && python -m uvicorn quiz_maker.asgi:application --host 127.0.0.1 --port 8000
+CD quiz_maker && python manage.py runserver
 GOTO finish
 
 :python_not_found
