@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'gf45wup8j9hi0HJ908*!_#@^&4ergyuvp980eawHUJ*!_#@^&%P98Ggdajhf;oil3409j&(*^(*^%3ytn96#%^Yp)(-203568-979)*^)#%!&@^Py98fhYHYUR089OGYHIW456;08NFW4Q5*!_#@^&%P968YUTVGJ;AOIHBF93*!_#@^&4576G5O3UYANCRIOUEGOV9JA3U4;8y%^*()@!&^$*!_#@^&%@#$_)($*%$U8rwu3yd-4ciz4&3jdct^*43yu$5g_*^^_vn8v4w$=i)3z+-a_di'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.16', '127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Session settings
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -54,12 +55,9 @@ MIDDLEWARE = [
 SECURE_HSTS_SECONDS = 3600
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
-# Из-за этой херни работает некорректно
+# SSL required
 SESSION_COOKIE_SECURE = False
-# Чтобы заработала эта хрень -
-# хрень ниже должна работать
 CSRF_COOKIE_SECURE = False
-# Эта хрень не работает
 SECURE_SSL_REDIRECT = False
 
 
@@ -127,7 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'quiz/static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
