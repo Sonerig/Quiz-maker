@@ -1,0 +1,16 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Вход в систему</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+    </head>
+    <body>
+        <h1>Вход в систему</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Войти</button>
+        </form>
+    </body>
+</html>
