@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from . import parsers
 import json
 
-
+@login_required(login_url="/")
 def upload_file(request):
     # POST request uploading the file (if exist),
     # parse it (see parsers.py), and save it to DB
@@ -28,8 +29,10 @@ def start_quiz(request, question_id):
     # If questions has been ended, redirect to result page (see urls.py).
     def next_question():
         return redirect('start_quiz', question_id+1) if question_id < questions_len else redirect('result')
-    
-    question = request.session.get('questions', [])[question_id - 1]
+    try:
+        question = request.session.get('questions', [])[question_id - 1]
+    except:
+        return redirect('upload_file')
     questions_len = len(request.session.get('questions', []))
         
     if not question:
@@ -62,12 +65,15 @@ def start_quiz(request, question_id):
 def result(request):
     # GET request is rendering the results page, which shows information
     # such as: score, total questions and percent of right answered questions.
-    total = len(request.session.get('questions', []))
-    score = request.session.get('score', [])
-    request.session['score'] = 0
+    try:
+        total = len(request.session.get('questions', []))
+        score = request.session.get('score', [])
+        request.session['score'] = 0
 
-    return render(request, 'result.html', {
-        'score': round(score, 2),
-        'total': total,
-        'percent': int((score / total) * 100 if total > 0 else 0),
-    })
+        return render(request, 'result.html', {
+            'score': round(score, 2),
+            'total': total,
+            'percent': int((score / total) * 100 if total > 0 else 0),
+        })
+    except:
+        return redirect('upload_file')
