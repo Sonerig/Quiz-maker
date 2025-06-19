@@ -3,5 +3,7 @@ venv
 quiz_maker/quiz_maker/__pycache__/
 quiz_maker/quiz/__pycache__/
 quiz_maker/quiz/migrations/__pycache__/
+quiz_maker/users/__pycache__/
+quiz_maker/users/migrations/__pycache__/
 questions/
 quiz_maker/db.sqlite3
