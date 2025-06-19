@@ -11,6 +11,7 @@ IF NOT EXIST venv\ (
         )
     )
     venv\Scripts\pip.exe install -r requirements.txt
+    venv\Scripts\python.exe quiz_maker/manage.py makemigrations
     venv\Scripts\python.exe quiz_maker/manage.py migrate
 )
 CALL venv\Scripts\activate.bat
