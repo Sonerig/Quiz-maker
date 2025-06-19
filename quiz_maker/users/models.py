@@ -21,14 +21,6 @@ class CustomUser(AbstractUser):
         verbose_name='groups',
         help_text='The groups this user belongs to.',
     )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='CustomUser_permissions',
-        blank=True,
-        verbose_name='user permissions',
-        help_text='Specific permissions for this user.',
-    )
-
 @receiver(pre_save, sender=CustomUser)
 def hash_password(sender, instance, **kwargs):
     if not instance.password.startswith('pbkdf2_sha256$'):
