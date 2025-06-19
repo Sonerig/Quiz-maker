@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.contrib.auth.hashers import make_password
+
+
 class Class(models.Model):
     class_name = models.CharField(max_length=5)
 
@@ -24,3 +28,8 @@ class CustomUser(AbstractUser):
         verbose_name='user permissions',
         help_text='Specific permissions for this user.',
     )
+
+@receiver(pre_save, sender=CustomUser)
+def hash_password(sender, instance, **kwargs):
+    if not instance.password.startswith('pbkdf2_sha256$'):
+        instance.password = make_password(instance.password)
