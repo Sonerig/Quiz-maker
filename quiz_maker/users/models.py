@@ -1,3 +1,26 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+class Class(models.Model):
+    class_name = models.CharField(max_length=5)
+
+    def __str__(self):
+        return self.class_name
+
+class CustomUser(AbstractUser):
+    classID = models.ForeignKey(Class, on_delete=models.CASCADE, blank=True, null=True)
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='CustomUser_groups',
+        blank=True,
+        verbose_name='groups',
+        help_text='The groups this user belongs to.',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='CustomUser_permissions',
+        blank=True,
+        verbose_name='user permissions',
+        help_text='Specific permissions for this user.',
+    )
