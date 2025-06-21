@@ -14,7 +14,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             fieldsets += (
                 ('Администрирование', {
-                    'fields': ('is_superuser', 'user_permissions', 'is_staff', 'groups'),
+                    'fields': ('is_superuser', 'is_staff', 'groups'),
                 }),
             )
         return fieldsets
