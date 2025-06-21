@@ -24,7 +24,7 @@ def hash_password(sender, instance, **kwargs):
     
 @receiver(post_save, sender=CustomUser)
 def assign_default_group(sender, instance, created, **kwargs):
-    if created and not instance.groups.exists():    
+    if created and (not instance.is_staff or not instance.is_superuser) and not instance.groups.exists():
         def on_commit():
             instance.groups.set([Group.objects.get(name='Ученик')])
         transaction.on_commit(on_commit)
