@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Class, CustomUser
+from .models import Class, CustomUser, Journal
 
 
 class CustomUserAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Пользовательские данные', {'fields': ('username', 'email', 'password', 'groups')}),
-        ('Персональные данные', {'fields': ('first_name', 'last_name', 'classID')}),
-        ('Статус', {'fields': ('is_active', 'is_staff')}),
+        ('Пользовательские данные', {'fields': ('username', 'email', 'password',)}),
+        ('Персональные данные', {'fields': ('first_name', 'last_name', 'classID',)}),
+        ('Статус', {'fields': ('is_active',)}),
     )
 
     def get_fieldsets(self, request, obj=None):
@@ -14,7 +14,7 @@ class CustomUserAdmin(admin.ModelAdmin):
         if request.user.is_superuser:
             fieldsets += (
                 ('Администрирование', {
-                    'fields': ('is_superuser', 'user_permissions'),
+                    'fields': ('is_superuser', 'user_permissions', 'is_staff', 'groups'),
                 }),
             )
         return fieldsets
@@ -22,3 +22,4 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Class)
+admin.site.register(Journal)
