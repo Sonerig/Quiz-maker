@@ -1,0 +1,83 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+.admin-btn{
+    padding: 8px 16px;
+    background-color: #2196F3;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.admin-btn:hover {
+    background-color: #1d7ece;
+}
+.logout-btn {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+.logout-btn:hover {
+    background-color: #cc4232;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+th:hover {
+    background-color: #e6e6e6;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+.filters {
+    background: #f5f5f5;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+.filters label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+.filters select, .filters input {
+    padding: 5px;
+    margin-right: 15px;
+}
+.filters button {
+    padding: 5px 15px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.filters button:hover {
+    background: #45a049;
+}
