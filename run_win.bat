@@ -13,6 +13,7 @@ IF NOT EXIST venv\ (
     venv\Scripts\pip.exe install -r requirements.txt
     venv\Scripts\python.exe quiz_maker/manage.py makemigrations
     venv\Scripts\python.exe quiz_maker/manage.py migrate
+    venv\Scripts\python.exe quiz_maker/manage.py createsuperuser
 )
 CALL venv\Scripts\activate.bat
 CD quiz_maker && python manage.py runserver
