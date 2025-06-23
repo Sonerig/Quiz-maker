@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
 from . import parsers
 from users.models import Journal, CustomUser, Class
-from datetime import datetime
+
 import json
+import openpyxl
+from datetime import datetime
+
 
 def upload_file(request):
     # POST request uploading the file (if exist),
@@ -91,6 +95,8 @@ def result(request):
     })
     
 def journal_view(request):
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('upload_file')
     student = request.GET.get('student')
     from_class = request.GET.get('from_class')
     date_from = request.GET.get('date_from')
@@ -136,3 +142,26 @@ def journal_view(request):
         'min_score': min_score,
         'current_sort': sort_by,
     })
+
+def export_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Journal_report.xlsx"'
+    
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Результаты тестов"
+    
+    ws.append(['Ученик', 'Класс', 'Оценка', 'Вопросов', 'Дата теста', 'Процент'])
+    
+    for result in Journal.objects.all():
+        ws.append([
+            f"{result.student.first_name} {result.student.last_name}",
+            result.student.classID.class_name,
+            result.score,
+            result.questions_count,
+            result.datetime.strftime("%d.%m.%Y %H:%M"),
+            result.percentage()
+        ])
+    
+    wb.save(response)
+    return response
